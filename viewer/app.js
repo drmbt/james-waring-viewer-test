@@ -176,12 +176,11 @@ function renderThumb(row) {
   const link = node.querySelector("a");
   const img = node.querySelector("img");
   const caption = node.querySelector("figcaption");
-  const localThumb = localImageUrl("thumbnails", row.localThumbnail);
   const googleImage = googleusercontentImageUrl(row.thumbnailLink);
   const driveThumb = driveImageUrl(row.thumbnailLink);
-  const imageCandidates = [googleImage, driveThumb, localThumb].filter(Boolean);
+  const imageCandidates = [googleImage, driveThumb].filter(Boolean);
 
-  link.href = row.thumbnailLink || googleImage || driveThumb || localThumb || "#";
+  link.href = row.thumbnailLink || googleImage || driveThumb || "#";
   img.src = imageCandidates[0] || "";
   img.dataset.imageIndex = "0";
   img.referrerPolicy = "no-referrer";
@@ -202,14 +201,6 @@ function renderThumb(row) {
   caption.textContent = row.fileName || "Unnamed file";
 
   return node;
-}
-
-function localImageUrl(folder, fileName) {
-  if (!fileName) {
-    return "";
-  }
-
-  return `${folder}/${encodeURIComponent(fileName)}`;
 }
 
 function googleusercontentImageUrl(url) {

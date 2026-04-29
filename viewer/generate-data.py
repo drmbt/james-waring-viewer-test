@@ -12,8 +12,6 @@ from openpyxl import load_workbook
 ROOT = Path(__file__).resolve().parent.parent
 WORKBOOK = ROOT / "James Waring current version final.xlsx"
 OUTPUT = Path(__file__).resolve().parent / "data.json"
-THUMBNAILS = ROOT / "Waring-thumbnails586"
-BIGGER_IMAGES = ROOT / "Waring-referenceFiles-Bigger"
 
 FIELD_MAP = {
     "File Name": "fileName",
@@ -35,23 +33,10 @@ def clean(value):
     return str(value).strip()
 
 
-def image_lookup(folder: Path) -> dict[str, str]:
-    if not folder.exists():
-        return {}
-
-    return {path.name.casefold(): path.name for path in folder.iterdir() if path.is_file()}
-
-
-def matching_image(file_name: str, lookup: dict[str, str]) -> str:
-    return lookup.get(file_name.casefold(), "")
-
-
 def main() -> None:
     workbook = load_workbook(WORKBOOK, data_only=True)
     sheet = workbook.active
     headers = [clean(cell.value) for cell in sheet[1]]
-    thumbnail_lookup = image_lookup(THUMBNAILS)
-    bigger_lookup = image_lookup(BIGGER_IMAGES)
     rows = []
 
     for spreadsheet_row, row in enumerate(sheet.iter_rows(min_row=2), start=2):
@@ -71,9 +56,6 @@ def main() -> None:
             item[key] = value
 
         if item.get("fileName"):
-            file_name = item["fileName"]
-            item["localThumbnail"] = matching_image(file_name, thumbnail_lookup)
-            item["localImage"] = matching_image(file_name, bigger_lookup)
             rows.append(item)
 
     OUTPUT.write_text(json.dumps(rows, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

@@ -1,8 +1,8 @@
 # James Waring Exhibition Viewer
 
 Static HTML/CSS/JS viewer for `James Waring current version final.xlsx`.
-It serves images from Google Drive first, then falls back to local files from
-`Waring-thumbnails586` when Drive does not return an image.
+It serves images from Google Drive using the hidden Drive links in the
+spreadsheet.
 
 ## Run It
 
@@ -24,8 +24,7 @@ python3 generate-data.py
 ```
 
 The generator preserves the hidden Google Drive links behind the spreadsheet's
-`View Thumbnail` cells and also records matching local image filenames when they
-exist.
+`View Thumbnail` cells.
 
 For Drive-hosted images to render in a browser, the Drive files need to be
 shared so the viewer can fetch them without an interactive sign-in prompt.
