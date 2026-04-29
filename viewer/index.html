@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>James Waring Exhibition Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">James Waring archive</p>
+        <h1>Exhibition Image Viewer</h1>
+        <p class="intro">
+          Spreadsheet entries are grouped by filename prefix. Repeated fields in a
+          group are combined below, while each source image remains visible in the grid.
+        </p>
+      </div>
+      <div class="controls" aria-label="Viewer controls">
+        <label for="search">Filter</label>
+        <input id="search" type="search" placeholder="Search names, filenames, years...">
+      </div>
+    </header>
+
+    <main>
+      <section class="summary" aria-live="polite">
+        <span id="group-count">Loading groups...</span>
+        <span id="item-count"></span>
+      </section>
+      <section id="groups" class="groups" aria-label="Exhibit groups"></section>
+    </main>
+
+    <template id="group-template">
+      <article class="group">
+        <div class="group-copy">
+          <p class="group-kicker"></p>
+          <h2></h2>
+          <dl class="meta"></dl>
+        </div>
+        <div class="thumb-grid"></div>
+      </article>
+    </template>
+
+    <template id="thumb-template">
+      <figure class="thumb-card">
+        <a target="_blank" rel="noreferrer">
+          <img loading="lazy" decoding="async" alt="">
+        </a>
+        <figcaption></figcaption>
+      </figure>
+    </template>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

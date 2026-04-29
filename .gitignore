@@ -1,0 +1,12 @@
+.DS_Store
+
+# Local source/reference material. The viewer should be portable without these.
+*.docx
+*.xlsx
+JamesWaring-MasterListDescriptionLegend.md
+Waring-referenceFiles-Bigger/
+Waring-thumbnails586/
+
+# Local symlinks into the ignored image folders.
+viewer/full-size
+viewer/thumbnails
